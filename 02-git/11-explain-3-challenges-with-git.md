@@ -15,7 +15,7 @@ This question is aimed at evaluating real-world Git usage and how well you’ve 
    When I first started contributing to open-source, I cloned repositories directly and couldn’t push my changes. I realized I should’ve used `git fork` to create my own copy of the repo on GitHub. After forking, I was able to push changes to my own version and submit pull requests to the original repository.
 
 4. **Access Control**
-   Access Control remains mess when too many people work on the same project
+   It was not well-defined, every developer had access to create and it made it difficult to manage. I understood and defined roles & reviewer access.
 
 ### 📘 Detailed Explanation  
 These challenges reflect how Git is powerful but not always beginner-friendly:
