@@ -10,3 +10,5 @@ Make sure to blend the tools in your statement.
 
 Q: Tell us about DevOps experience
 
+A: my name is... m working at x organization, m part of y project as part of my day to day activity i work on ci/cd pipeline, github actions is my primary expertise, we have multiple repos and multiple microservices I'm a key member to work on github actions and I build robust ci/cd pipelines. my major activity includes writing iac using terraform i work with multiple development teams and deliver work through terraform. personally i like to building terraform code in modular approach so I also work in creating terraform modules and putting in centralized locations. All are apps are deployed to AWS - our primary cloud platform so I work on various AWS services and also on the observability part to some extent. Whenever it comes to scripting so I prefer bash and python.
+
