@@ -1,0 +1,26 @@
+Note - There are a lot of MNCs which use Terraform community version even today.
+
+Hey, in the current organization, we have evaluated Terraform Enterprise and Community version. We are definitely aware within the Terraform Enterprise version 
+there are features like drift detection. There are features like state file management, where state file is handled by the Terraform enterprise, and also Rbac.
+That is proper security.
+
+Who can access the Terraform state file and who can access the Terraform enterprise?
+We have a very strong DevOps team. We actually have a team of 10 to 11 DevOps instance (Or you can also say we have a short DevOps team, but strong DevOps team.)
+And we have decided to implement these features on our own. So we made sure that the Terraform state file is stored on a remote backend.
+
+So currently we are using S3 bucket. And within the S3 bucket we have implemented we have enabled versioning. We have enabled locking and enabled security.
+So this way our state file has backups. Our state file is also logged on concurrent executions, and our state file is also secure. 
+And then we have implemented a very strong Rbac. So we store the Terraform CL files on a git repository with strict restrictions.
+So all our CL files and even if someone wants to execute the Terraform ci CD, they need access to the git repository.
+
+And finally, when it comes to drift detection, which is another feature offered by Terraform enterprise, we made sure we implement zero privilege or least 
+privilege on the cloud provider. So no developer can actually go to the AWS or Azure Cloud Platform and modify the resources on their own if they have to 
+modify the resources. They actually have to head to Terraform and they have to update the resources using Terraform. 
+Even if they want to delete the resources, they have to head head to terraform and they have to delete the resources from Terraform.
+
+Short Explanation:
+In a nutshell, Terraform is our single source of truth or single point of contact for creating the infrastructure. No developer can manually update 
+the infrastructure on the cloud provider or delete the infrastructure on the cloud provider. So there is no point of drift detection. We have handled it.
+So this way we decided to go with community version of Terraform instead of Terraform enterprise version and save a lot of money for our organization.
+
+Only things that Terraform enterprise offer better than community version is drift detection and proper state file management with Rbac.
