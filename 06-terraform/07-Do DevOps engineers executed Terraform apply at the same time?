@@ -1,0 +1,28 @@
+So let's say interviewer gave you this scenario. 
+One of the developer created a JIRA ticket. So developer created ad hoc Jira ticket. And developer calls this Jira ticket as important or critical. 
+And there are two DevOps engineers in your organization. Both of them are working from home. Let's say DevOps engineer A and DevOps engineer B.
+Both of them looked at this JIRA ticket. So they saw that this is important. So both of them pick the same JIRA ticket and they understood it is about 
+Support VPC creation. There is already a VPC module within your Terraform module registry, so both of them pick the Terraform module registry.
+They looked at the Terraform files to create VPC and they got all the information from the JIRA ticket. So developer A sorry DevOps engineer A on their 
+local machine executed Terraform apply DevOps engineer B on their local machine also applied. Also run. Terraform apply. Now what happens in this case?
+
+Now both of them technically are trying to create VPC for the same team. Maybe both of them must be using the same name, the same metadata and everything.
+Same. Now what happens in this case? Will two VPCs be created or will there be a duplicate VPC error. What exactly happens?
+
+So you should tell the interviewer hey, in Terraform there is a concept called state logging. So in our organization we store the Terraform state file 
+onto the remote backend like S3 where state file is stored, and S3 also implements locking of the state file. So both of them might have executed 
+Terraform apply at the same time. Both of their requests head to S3 and typically there is a race condition between the DevOps incidents. Because both of them 
+have parallelly requested. Imagine both of these developers are working from home. There is a possibility of latency. Now one of the DevOps engineers Request 
+might reach to S3 bucket first, and other DevOps engineers request might reach S3 bucket milliseconds later. So here S3 bucket provides the lock for the DevOps 
+engineer whose request reached first, and their VPC or their code is executed and VPC is created for them first. Then the second request is executed and 
+this DevOps engineer sees an error called VPC already exists.
+
+Now imagine there is no latency. So let's say there is a plain environment where all the DevOps engineers request reach the S3 bucket at the same time.
+Now, it's not the headache of the DevOps engineer, whether it is S3 bucket, whether it is Azure Blob. They have a mechanism to handle the race condition 
+when both the requests reach Reads the S3 bucket at the same time it's up to S3 bucket or it's up to Azure blob how they handle the race condition,
+and they decide which of the DevOps engineer should receive the lock. So it's not the headache of DevOps engineers, but it is the headache of the remote backend.
+
+Response in Short:
+In a nutshell, the remote backend has a mechanism to handle the race condition. It decides which DevOps engineer should receive the lock according to its algorithm,
+and that DevOps engineers code is executed. Other DevOps engineer might receive an error if the configuration of VPC is exactly same, that is, duplicate VPC 
+if the configuration is different, another VPC is created for DevOps Engineer B's request.
