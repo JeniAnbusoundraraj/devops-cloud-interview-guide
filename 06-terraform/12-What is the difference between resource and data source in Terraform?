@@ -1,0 +1,28 @@
+Terraform can not only create, modify and delete information on the cloud provider, but Terraform can also read information from the cloud provider that is 
+using data source. 
+So resource performs create, modify, delete.
+Whereas data source perform reading of the information from the cloud provider.
+
+Best example.
+You know I'll give you a real time example here.
+
+So basically this code block is a sample code
+
+resource "aws_instance" "web" {
+  ami = ami-xyz
+  instance_type = "t2.micro"
+  subnet_id = data.aws_vpc.default.default_route_table.id
+
+It is using the resource block to create EC2 instance. Perfect EC2 instance will be created with this particular instance type.
+Now you want to associate a subnet ID to the EC2 instance, let's say a particular public or private subnet. And it already exists on the cloud provider.
+You don't want to create a new one. So you need to read that information. For that you will use data dot aws, VPC default dot, default route, dot table ID or subnet ID, whatever
+you want.
+AWS underscore VPC is the thing. And also can I directly put data.aws_vpc? No. Before that you have to, you know, actually uh provide a block.
+So you will just define just like a resource block, you will define a data block data.aws_vpc and you are reading this information to the default right now here 
+I am just using it data.vpc.default, aws_vpc.default dot whatever I want to fetch from the VPC. 
+
+So if I want to read the API key of the gateway or if I want to read, let's say the authorizer information of API gateway, I'll just click on this and I will 
+get the code for the data block. So I'll just use it and paste this code for the data block within my Terraform code.
+
+In short: this is the difference between data source and resources in Terraform.
+In a nutshell, resources is used to create and data sources is used to read the information within the Terraform.
