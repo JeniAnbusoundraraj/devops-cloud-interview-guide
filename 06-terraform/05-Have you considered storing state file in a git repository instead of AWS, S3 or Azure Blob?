@@ -1,0 +1,30 @@
+State file holds the important information, such as resource ID of the resources that it created, metadata 
+of the resources IP addresses, if exists for the resources. It also holds the information of dependencies between the resources.
+And finally, it holds the information of last known state of the infrastructure.
+
+Now, because this information is not only important, but it is also very sensitive for the organization, for example IP addresses of the instances.
+So this cannot be stored on the local disk of the individual DevOps engineer.
+At the same time, this cannot be stored on a git repository as well. Because if this state file. With all this information is stored in a git repository.
+If the git repository is public. Everyone can access it. And your compromise with the sensitive information. Even if the git repository is private within the organization.
+Still a lot of people can access this information. So to avoid this state, file is stored in remote backends like AWS, S3 or Azure Blob.
+
+All that you need to do is you need to define a backend.tf. Within your CL files and within this backend.tf, you provide the information of the remote backend
+that you're going to use. Just create the remote backend such as create S3 bucket on AWS. And within the backend tf.
+Just provide the name, region and other information so that Terraform can upload the state file onto these remote backends.
+
+So within the remote backend you can enable versioning. So it provides the capabilities like git where the remote backends can also act as version control systems.
+You can enable security so that your state file is secure. You can block access with strict Rbac and policies. You can also enable backups.
+And finally locking of the state file within the remote backend. Now locking also provides a great advantage because Terraform files cannot be executed by 
+multiple DevOps engineers concurrently.  
+```
+Let's say you have a Terraform file to create EC2 instance.
+```
+You cannot have two DevOps engineers run the same EC2 instance file with the same username, because Terraform will confuse which instruction to pick.
+Whereas if one developer executes the Terraform file, EC2 instance is created. 
+Now, if the second engineer tries to use the same HCL file, AWS will return an error saying that EC2 instance exists or any relevant error.
+It doesn't have to be with creation of instance only. It can be with updating same resource by multiple DevOps engineers.
+
+Even in this case, let's say two DevOps engineers tries to update an existing resource on AWS. Terraform will fail to understand which instruction it has to take.
+Locking the state file will provide the flexibility. So once this engineer executes, the instruction state file is logged on the particular instance name.
+Only once the execution is complete, lock is released. Then other DevOps engineer gets access to the log file.
+So this is how you explain why you store a terraform state file in the git repository instead of S3 backend or any other remote backend.
