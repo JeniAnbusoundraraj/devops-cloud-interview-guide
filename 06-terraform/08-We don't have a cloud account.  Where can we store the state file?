@@ -1,0 +1,24 @@
+
+What exactly is the intention of the interviewer? Then I'll tell you how to answer this question. We don't have a cloud account. What does that mean?
+So basically when DevOps engineers use Terraform, they use remote backends like S3 bucket, Azure Blob, Google container storage. But here the question is 
+the entire infrastructure is on premises. So companies using Terraform to create infrastructure may be on their OpenStack or VMware or anything on their on premises.
+Now just for the DevOps instance, company cannot take license of the cloud provider or they cannot create an account on the cloud provider. Now what will the DevOps engineers do?
+Because just for storing the state file, which is a very small file. Companies cannot negotiate with the cloud providers. Take an account for them.
+What are the alternatives? That is what interviewer is asking.
+
+DevOps engineer. Now in this case you should tell the interviewer, hey, remote backend concept of Terraform is not restricted to the cloud providers.
+So if you look at the HashiCorp page there are various remote backends that Terraform supports. Of course, the major ones are cloud provider backends like S3 blob GCS.
+However, Terraform also supports standalone remote backends like HashiCorp console.
+
+So within your OpenStack infrastructure or within your on premises. So you can create HashiCorp console so you can install HashiCorp console.
+You can integrate it with HashiCorp vault if required. And you can store your state file in the console. So this way whenever Terraform creates some resources 
+on OpenStack or on your infrastructure, it stores the state file onto the console.
+
+Otherwise, let's say you don't want to maintain the console. You don't want to maintain the server. You don't want to constantly upgrade it. You don't want a team
+behind it. What you can also do is you can go for Terraform Enterprise. But Terraform Enterprise is not free. It comes with a licensing cost. If you're okay 
+with the licensing cost of Terraform Enterprise, you can definitely go with Terraform Enterprise along with state file locking. You also get many other 
+features in enterprise. 
+For example drift detection. So according to the budget and according to the requirement, we can decide if Terraform Enterprise is the suitable option or 
+installing and maintaining HashiCorp console is the better option. 
+
+Note: You can tell the interviewer Terraform backend concept is not restricted to the cloud providers.
