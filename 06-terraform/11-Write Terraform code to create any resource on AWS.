@@ -1,0 +1,33 @@
+Note: Interviewer does not expect you to write 100% accurate code. Interviewer expectations will be at least you write a working code, 
+but when it comes to terraform, it is practically impossible because when you look at Terraform, there are multiple providers such as AWS, Azure, GCP,
+and within each provider there are multiple resources and within each resource there are multiple fields. This is to test if you actually know the flow of Terraform.
+
+If you take AWS as a provider within AWS, there can be 300 to 400 resources within each resource. There will be tens of fields. So technically nobody can 
+remember this. And everybody would refer Terraform documentation to create resources on Terraform.
+
+Do you actually know which files to write and what exactly goes into those files? And what are the best practices of writing Terraform?
+example - S3 bucket : So I will tell the interviewer.
+
+I will start with Main.tf and within the main.tf, I always start with defining a terraform block, and within the terraform block I define the required providers.
+Because when Terraform will be executed for the first time, it has to download the provider configuration such as AWS provider plugin, create state files, etc. 
+And within this I will define the source of the provider as well as version of the provider that has to be downloaded.
+
+So within the Main.tf first you define the terraform block where you define required providers and you provide the configuration of your provider 
+so that no matter who downloads this, Terraform files whichever DevOps engineer on their local machine, this particular provider with this particular version 
+is used. Otherwise, if someone uses a different version of the provider, the code might not work.
+
+And immediately you initiate the provider that is, you know, here you downloaded the AWS provider. Now you define in which region the provider has to be used.
+So typically in which region Terraform has to create the resources. Now once this is done, like once the provider configuration is done then I will head to 
+defining the resource creation.
+
+In this case S3 resources. Either I'll create a new file for it. I will call this maybe Main.tf. And I will write another file called s3.tf. Or if the configuration
+is small, I will continue that in the main.tf file itself. 
+
+Now here I will head to AWS documentation to find what exactly is the resource block to create S3 bucket. You can totally tell the interviewer I don't remember 
+the name of the resource, I just remember that now I have to start with the resources field. Then I'll go to the AWS documentation, find the resource name, and 
+then I will provide something like this, which is basically the name for the resource block. And within that whatever is the configuration that is provided in 
+the AWS documentation such as bucket name the fields for the S3 bucket, I will put that in the resource block. You can completely tell. This interviewer is most 
+interested in the Terraform block, in the provider block, and in the syntax of the resource block. Now you just have to tell that, you know, this is the syntax 
+of the resource block rest. I will look at the AWS documentation and then you will tell the interviewer instead of hard coding region, and instead of hard coding 
+the values of the fields, I will create a Variables.tf and I will customize the values through the variables.tf.
+In future, some of the developers can also use Terraform.tf vars.
