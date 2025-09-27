@@ -1,1 +1,49 @@
+Note: Reason why interviewers ask this question. State file is the very important concept of Terraform.
+If you know how to manage state file Terraform, then you have solved the major problem with Terraform.
 
+Let me first explain what is state file management. Basically in Terraform, state file is the heart of Terraform.
+State file has the information of resources that you created with Terraform. It has information of dependencies of the resource that you created.
+It also has the information of last state of your infrastructure. That means, Whatever resources you create with Terraform and AWS state file has the resource IDs.
+It has the dependencies and one resource is dependent on other resource. So during the deletion of infrastructure Terraform uses this dependency graph.
+And Terraform also has the last or the previous state of your current state of your infrastructure. 
+
+Terraform refers to this state file when you ask to create a new resource, or even when you ask to create or update an existing resource.
+Let's say you have created an EC2 instance. Now you want to update some configuration of the EC2 instance. 
+Terraform looks at the last state of this EC2 instance, whatever configuration you are asking it to update.
+It will just update that configuration on EC2 rather than creating a new EC2 instance. It will just work on the configuration update.
+
+How Terraform looks at the state file.
+It will try to see what is the EC2 instance resource ID. It will check if the resource ID exists. It will check if there is any dependency, 
+what is the last state and then it will update the EC2.
+
+Now the biggest problem is because state file has all the information of your infrastructure. You cannot place it anywhere.
+Let's say if you have the state file on your local machine, then other DevOps engineer when tries to execute the HCL files on the git repository, 
+Terraform installed on that developer or DevOps engineers machine cannot locate the state file because it is on X developer's personal laptop.
+So this is the reason why you need this state file in a centralized location so that everyone can access the state file, and anyone who runs Terraform state 
+file is updated. Irrespective if I'm running on my machine, if I'm running on a common server, if I'm running on someone else's machine, anywhere.
+Any DevOps engineer runs Terraform state file will be updated if it is stored in a centralized location.
+
+Now what is that centralized location? Can you store state file in git along with the headsail files?
+Obviously no, because state file has some sensitive information such as your resource IDs, IP address of your instances, 
+the information of the dependencies, sometimes some certificates. So you cannot store the state file in a git repository because it becomes public, 
+or at least it becomes public in your organization and its a bad choice. You cannot store it on your local machine. You cannot store it on a git repository. 
+So where else can you store? So this is where Terraform supports something called as remote backend.
+So remote backend is a centralized either a version control system or a centralized storage that is supported by Terraform such as S3 bucket on AWS, 
+blob storage on Azure or Google GCS on Google Cloud. So you can use any of these things as remote backend.
+So you just need to define in one of your ACL file, or you create ACL file called backend.tf. And within this ACL file 
+you will provide the configuration of S3 bucket, blob or GCS.
+
+Also, these remote backends are capable enough to ensure if someone is running this CL file state file is logged on their name.
+Because you cannot afford multiple people running the same Terraform files at once. Because let's say one of the developer is trying to update EC2 instance, 
+another developer is also parallelly trying to update the same EC2 instance. Then it will be a deadlock, right?
+
+It will be a situation where Terraform does not understand which instruction to execute. So these backends are also capable of locking the state file.
+So if let's say I am running the Terraform files state file in S3 bucket blob or GCS will be logged with my name.
+And only once my Terraform execution is done, the lock is released and then other person will be able to run the terraform files 
+and log is established on their name. So this entire process is called as state file management.
+
+Response in Interview:
+In a nutshell, state file management is a process of deciding where to store the state file and how to connect your files or terraform files to the state file.
+In our organization, we store statefile in remote backend. Terraform supports various remote backends such as S3, Azure Blob, GCS console, and multiple others.
+But because we are using AWS in our current organization, we are using S3 bucket to store the state file. And we have also enabled versioning on the S3 bucket.
+We have enabled locking on S3 bucket. And also we have enabled security. So this way we are also taking care of versioning locking and security of the state file.
