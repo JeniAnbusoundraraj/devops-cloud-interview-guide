@@ -1,0 +1,31 @@
+Note: It is quite possible you might have not heard of tofu. You might be using/learning Terraform.
+
+So if you know Terraform is actually created by HashiCorp and HashiCorp has open source Terraform. So till the last year, Terraform was actually open source.
+But sometime last year, HashiCorp decided to change the license of Terraform. So Terraform is no longer open source, but it is under BSL license.
+(Business source license)
+
+What exactly is this licensing change?
+
+Just like how AWS provides EKS Kubernetes as a service, HashiCorp has noticed many companies are providing Terraform as a solution, or many companies are 
+building companies on infrastructure and they are using Terraform under the hood. Looking at all this, you know, HashiCorp is not making a lot of money, 
+but these companies are making money and they are not contributing it back to Terraform. So HashiCorp has decided to change the license to BSL.
+Now according to the BSL license, any such companies cannot use Terraform or cannot sell Terraform as part of their offering. If they have to do so, they need to 
+get in touch with HashiCorp support and they have to buy some license from HashiCorp. However, this does not impact the end user.
+
+So let's say in your company, if you are using Terraform, maybe to create infrastructure on AWS or maybe to create your dev environment, staging environment, 
+prod environment, it actually does not matter for you because this licensing change is focused on companies that are selling Terraform.
+So for you or for your company which is using Terraform to create your internal infrastructure, this licensing change does not make any difference.
+So some of these companies which are impacted and some contributors, contributors of Terraform who did not like this licensing change, 
+who did not like Terraform from moving from open source to BSL, have forked. A copy of Terraform or have created a fork from the Terraform GitHub repository 
+and made this fork open source. And this is called as open door. So technically open tofu and terraform have the same roots, but at a point they are diverged 
+because open tofu is actually created from Terraform from the version of Terraform that was open source. Later Terraform moved to BSL.
+
+Terraform or HashiCorp kept adding changes to Terraform. Similarly, open source company or community kept adding changes to open tofu.
+Now, interviewer's question is have you heard of open tofu? Do you think it is better than Terraform?
+
+Response: open tofu share their roots because open tofu was actually created from Terraform. It was created from Terraform because of licensing change of 
+Terraform in our organization. We just use Terraform to create internal infrastructure. We don't sell Terraform, so we are not impacted by the licensing chain.
+So we have decided to go with HashiCorp, Terraform. We have built a lot of HCL files. We are heavily invested in the HashiCorp products such as Terraform vault.
+So we have decided, at least for now, we will stick to HashiCorp. And we have been using Terraform only.
+However, I personally learned open tofu and I learned that the same Terraform files can actually be used with open tofu as well if given an opportunity.
+I'm open to learn open tofu and I'm open to work with open tofu as well.
