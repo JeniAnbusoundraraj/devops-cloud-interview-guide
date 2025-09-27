@@ -1,0 +1,32 @@
+In Terraform, state file is the heart of the terraform. Or you can consider it as a brain of the terraform. 
+So whenever Terraform creates a resource on cloud provider like AWS, Terraform stores this information on to the state file 
+to understand what resources it has created. So in future, if it has to update the resource that it created, it will just go back to the state file.
+Understand what is the current state of the resource And then it will understand what needs to be updated.
+
+So what exactly Terraform does every time it creates a resource, it can be as simple as an EC2 instance. It goes to this file called as state file.
+And within this state file 1. it stores the resource ID of the EC2 instance. 
+2. It stores the metadata of the EC2 instance.
+3. It stores the IP address of the instance that it created, and it also stores the last known state of the EC2 instance.
+So next time, if it has to update very simple, it will see if the resource ID exists.
+
+Now when user asks to update something, it will see what is the difference between the last known state and what is the user asking to update.
+If user is asking me to update a small change on the EC2 instance. So I'll just make an API call to AWS to update that small change on the EC2 instance.
+So it is capable of doing all these only because of the state file.
+
+Imagine if state file does not exist. So you go to Terraform. You ask Terraform to create an EC2 instance. Okay, Terraform makes an API call to AWS.
+It creates the EC2 instance. After one month you know you wrote a CL file for EC2 instance creation. 
+After one month you updated this Excel file with a particular key value pair. That's it. Now Terraform looks at this Excel file.
+It does not know that the EC2 instance already exists on AWS. It will just see the Excel file.
+
+Somebody provided me this information and they ran Terraform apply. So I'm going to make an API call to AWS to create this instance.
+Again because it does not know that the instance exists. So again it makes an API call with AWS. It might fail or it might create a new EC2 instance.
+This is avoided only because of the state file. That's why state file is called as brain of Terraform.
+Whenever you run Terraform plan or whenever you run Terraform apply. You must have noticed Terraform gives you a prompt saying that these are the additions 
+that I am going to make. And these are the deletions that I am going to make, or these are the modifications that I am going to make.
+
+In Short: 
+
+In Terraform state, file stores the information of the resources that are created by Terraform. It also stores all the relevant information, 
+such as the metadata of the resources, last known information of the resources. 
+So whenever you run Terraform plan or Terraform apply, Terraform looks at the state file and understands the current state of the resources.
+Only because of the state file, Terraform can execute the actions.
