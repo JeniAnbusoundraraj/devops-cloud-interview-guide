@@ -18,7 +18,6 @@ And finally locking of the state file within the remote backend. Now locking als
 multiple DevOps engineers concurrently.  
 ```
 Let's say you have a Terraform file to create EC2 instance.
-```
 You cannot have two DevOps engineers run the same EC2 instance file with the same username, because Terraform will confuse which instruction to pick.
 Whereas if one developer executes the Terraform file, EC2 instance is created. 
 Now, if the second engineer tries to use the same HCL file, AWS will return an error saying that EC2 instance exists or any relevant error.
