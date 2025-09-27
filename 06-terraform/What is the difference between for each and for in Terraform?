@@ -1,0 +1,34 @@
+This is a very common question when it comes to Terraform, because some people are confused when to use for each and when to use for.
+
+In interviews you need to explain for each is used to create multiple instances of resource based on map or set.
+The for expression is used to transform or generate values. Maybe it can be list or map inside the variables.
+Detailed Explanation:
+First, let me explain the concept. - for each is used when you want to create multiple instances of a resource.
+
+For example you want to create three S3 buckets. Instead of writing the resource block for S3 three times we can use for each inside that resource block.
+
+Usually I provide one name for the bucket, but this time instead of a single name, because I want to create three S3 buckets, I will provide 
+
+resource "aws_s3_bucket" "new_bucket" {
+  for_each = toset(["dev", "stage", "prod"])
+  bucket = "myapp-$(each.key)"
+  acl = "private"
+}
+
+locals {
+  environments = ["dev", "stage", "prod"]
+  bucket_names = [for env in locals.environments : "myapp-${env}"]
+}
+
+So when you provide each dot key, basically it iterates three times over the set. It loops over three times over the set and three resources are created for you.
+In a nutshell, whenever you want to create multiple instances, it can be S3 bucket, it can be EC2 instances, it can be EBS volumes.
+Instead of writing the resource block multiple times, you will define a set and you will loop over the set using each dot key.
+Set the values and then in the next line each dot key wherever you want to implement that particular execution, right?
+In this case, I want to create three different S3 buckets. So that's why I used each dot key in the name of the bucket.
+
+For is exactly like the for loop that you use in your shell script, or whether it can be in your Python, it will simply loop over variables, or it will simply loop over the values.
+Exactly the same thing in Terraform as well. So environments is a list that is defined here. The value of environments is dev, stage and prod.
+So you can simply use fur keyword for env in local environments.
+
+So fur is used for data transformation in Terraform, whereas for each is used when you want to create multiple instances in Terraform.
+For each controls the resource execution while for is used for data transformation.
