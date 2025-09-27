@@ -1,14 +1,14 @@
-State file holds the important information, such as resource ID of the resources that it created, metadata 
-of the resources IP addresses, if exists for the resources. It also holds the information of dependencies between the resources.
+State file holds the important information, such as resource ID of the resources that it created, 
+metadata of the resources IP addresses, if exists for the resources. It also holds the information of dependencies between the resources.
 And finally, it holds the information of last known state of the infrastructure.
 
 Now, because this information is not only important, but it is also very sensitive for the organization, for example IP addresses of the instances.
 So this cannot be stored on the local disk of the individual DevOps engineer.
-At the same time, this cannot be stored on a git repository as well. Because if this state file. With all this information is stored in a git repository.
-If the git repository is public. Everyone can access it. And your compromise with the sensitive information. Even if the git repository is private within the organization.
+At the same time, this cannot be stored on a git repository as well. Because if this state file with all this information is stored in a git repository.
+If the git repository is public. Everyone can access it. And you compromise with the sensitive information. Even if the git repository is private within the organization.
 Still a lot of people can access this information. So to avoid this state, file is stored in remote backends like AWS, S3 or Azure Blob.
 
-All that you need to do is you need to define a backend.tf. Within your CL files and within this backend.tf, you provide the information of the remote backend
+All that you need to do is to define a backend.tf. Within your CL files and within this backend.tf, you provide the information of the remote backend
 that you're going to use. Just create the remote backend such as create S3 bucket on AWS. And within the backend tf.
 Just provide the name, region and other information so that Terraform can upload the state file onto these remote backends.
 
